@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=meal_planner
+POSTGRES_USER=hWhuBaeurnDbYCOixQmlqqbGFRxwaeow
+POSTGRES_PASSWORD=sibCLY9Aif9wCS7CW8L7xPWyzlN1SWQQ2BH1bfO88phEzmegWzRXqYdaCWIKCgIZ

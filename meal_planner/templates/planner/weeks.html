@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %} Weeks {% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <h2>Plans</h2>
+    </div>
+  </div>
+
+<!-- Action buttons -->
+{% for plan in plans%}
+  {% if forloop.counter|mod:2 != 0 %}
+  
+  <div class="row">
+  {% endif %}
+  <div class="col-sm-6 mb-3">
+    <div class="card {% if plan.plan_state == 0 %} bg-secondary {% endif %}
+    {% if plan.plan_state == 1 %} bg-success {% endif %}
+    {% if plan.plan_state == 2 %} bg-warning {% endif %}">
+      <div class="card-body">
+        <h5 class="card-header">{{ plan.start_of_week }}</h5>
+        <p class="card-text">{{ plan }}</p>
+        {% if plan.plan_state == 1 %} <a href="#" class="btn btn-primary">View</a> {% endif %}
+        {% if plan.plan_state == 0 %} <a href="#" class="btn btn-primary">Create</a> {% endif %}
+        {% if plan.plan_state == 2 %} <a href="#" class="btn btn-primary">Edit</a> {% endif %}
+      </div>
+    </div>
+  </div>
+  {% if forloop.counter|mod:2 == 0 %}
+  </div>
+  {% endif %}
+ 
+{% endfor %}
+
+<!-- End Action buttons -->
+
+</div>
+{% endblock content %}
