@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load mathfilters %}
+
+{% block title %} Weeks {% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+
+      <h2>Plan</h2>
+    </div>
+  </div>
+
+  {% csrf_token %} 
+    
+    {{ form.as_p }}
+    <input type="submit" value="Save"> 
+
+<!-- End Action buttons -->
+
+</div>
+{% endblock content %}

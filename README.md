@@ -52,3 +52,11 @@ The following details how to deploy this application.
 ### Docker
 
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+
+
+### DB for developing
+```bash
+export DATABASE_URL=postgres://postgres@127.0.0.1:5432/meal_planner
+export USE_DOCKER=n
+python manage.py runserver 0.0.0.0:8000
+```

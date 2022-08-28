@@ -11,6 +11,8 @@ class Mains(models.Model):
         app_label = "planner"
 
     def __str__(self):
+        if self.name is None:
+            return "Mains"
         return self.name
 
 
@@ -45,7 +47,7 @@ class Starch(models.Model):
 
 
 class Meal(models.Model):
-    mains = models.ForeignKey(Mains, on_delete=models.DO_NOTHING)
+    mains = models.ForeignKey(Mains, blank=True, null=True, on_delete=models.DO_NOTHING)
     vegies = models.ManyToManyField(Vegetable)
     starches = models.ManyToManyField(Starch)
     salad = models.ManyToManyField(Salad)
@@ -54,7 +56,9 @@ class Meal(models.Model):
         app_label = "planner"
 
     def __str__(self) -> str:
-        return self.mains
+        if self.mains is None:
+            return "Add Mains"
+        return self.mains.name
 
 
 class MealPlan(models.Model):

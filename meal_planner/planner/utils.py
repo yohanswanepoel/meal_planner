@@ -16,43 +16,32 @@ def getWeeks():
     current_week = monday.date()
     previous_week = current_week - seven_days
 
-    meal_plan = {}
-    meal_plan["start_of_week"] = previous_week
-    try:
-        plan = MealPlan.objects.get(start_of_week=previous_week)
-        meal_plan["plan_state"] = plan.complete
-    except ObjectDoesNotExist:
-        meal_plan["plan_state"] = PLAN_NOT_STARTED
+    meal_plan = check_week(previous_week)
     weeks.append(meal_plan)
 
-    meal_plan = {}
-    meal_plan["start_of_week"] = current_week
-    try:
-        plan = MealPlan.objects.get(start_of_week=current_week)
-        meal_plan["plan_state"] = plan.complete
-    except ObjectDoesNotExist:
-        meal_plan["plan_state"] = PLAN_NOT_STARTED
+    meal_plan = check_week(current_week)
     weeks.append(meal_plan)
 
-    meal_plan = {}
-    meal_plan["start_of_week"] = current_week + seven_days
-    try:
-        plan = MealPlan.objects.get(start_of_week=(current_week + seven_days))
-        meal_plan["plan_state"] = plan.complete
-    except ObjectDoesNotExist:
-        meal_plan["plan_state"] = PLAN_NOT_STARTED
-
+    meal_plan = check_week(current_week + seven_days)
     weeks.append(meal_plan)
 
-    meal_plan = {}
-    meal_plan["start_of_week"] = current_week + fornight
-    try:
-        plan = MealPlan.objects.get(start_of_week=(current_week + fornight))
-        meal_plan["plan_state"] = plan.complete
-    except ObjectDoesNotExist:
-        meal_plan["plan_state"] = PLAN_NOT_STARTED
-
+    meal_plan = check_week(current_week + fornight)
     weeks.append(meal_plan)
 
     print(weeks)
+
     return weeks
+
+
+def check_week(date):
+    meal_plan = {}
+    meal_plan["start_of_week"] = date
+    try:
+        plan = MealPlan.objects.get(start_of_week=date)
+        meal_plan["plan_state"] = plan.complete
+    except ObjectDoesNotExist:
+        plan = MealPlan(start_of_week=date, complete=PLAN_NOT_STARTED)
+        plan.save()
+        meal_plan["plan_state"] = PLAN_NOT_STARTED
+    meal_plan["pk"] = plan.id
+    return meal_plan

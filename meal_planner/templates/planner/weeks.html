@@ -27,9 +27,9 @@
       <div class="card-body">
         <h5 class="card-header">{{ plan.start_of_week }}</h5>
         <p class="card-text">{{ plan }}</p>
-        {% if plan.plan_state == 1 %} <a href="#" class="btn btn-primary">View</a> {% endif %}
-        {% if plan.plan_state == 0 %} <a href="#" class="btn btn-primary">Create</a> {% endif %}
-        {% if plan.plan_state == 2 %} <a href="#" class="btn btn-primary">Edit</a> {% endif %}
+        {% if plan.plan_state == 1 %} <a href="{% url 'planner:plan_view' plan.pk  %}" class="btn btn-primary">View</a> {% endif %}
+        {% if plan.plan_state == 0 %} <a href="{% url 'planner:plan_view' plan.pk  %}" class="btn btn-primary">Start</a> {% endif %}
+        {% if plan.plan_state == 2 %} <a href="{% url 'planner:plan_view' plan.pk  %}" class="btn btn-primary">Update</a> {% endif %}
       </div>
     </div>
   </div>
