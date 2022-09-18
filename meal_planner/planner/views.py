@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse
@@ -16,7 +17,7 @@ from django.views.generic import (
 
 # from meal_planner.planner.models import Meal, MealPlan
 
-from planner.models import MealPlan, Meal, Vegetable
+from planner.models import MealPlan, Meal, Vegetable, Mains, Starch
 from .utils import getWeeks
 from .forms import PlannerForm
 
@@ -47,9 +48,10 @@ class PlannerUpdateView(UpdateView):
     success = "#"
 
 
-class PlannerDetailView(DetailView):
+class PlannerDetailView(FormMixin, DetailView):
     template_name = "planner/plan_detail.html"
     model = MealPlan
+    form_class = PlannerForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,42 +85,17 @@ class PlannerDetailView(DetailView):
             meal.save()
             meal_plan.day_sunday = meal
         meal_plan.save()
-        # print(meal_plan.__dict__)
-        monday = {}
-        monday["vegies"] = meal_plan.day_monday.vegies.all()
-        monday["starches"] = meal_plan.day_monday.starches.all()
-        monday["salad"] = meal_plan.day_monday.salad.all()
-        tuesday = {}
-        tuesday["vegies"] = meal_plan.day_tuesday.vegies.all()
-        tuesday["starches"] = meal_plan.day_tuesday.starches.all()
-        tuesday["salad"] = meal_plan.day_tuesday.salad.all()
-        wednesday = {}
-        wednesday["veggies"] = meal_plan.day_thursday.vegies.all()
-        wednesday["starches"] = meal_plan.day_thursday.starches.all()
-        wednesday["salad"] = meal_plan.day_thursday.salad.all()
-        thursday = {}
-        thursday["vegies"] = meal_plan.day_thursday.vegies.all()
-        thursday["starches"] = meal_plan.day_thursday.starches.all()
-        thursday["salad"] = meal_plan.day_thursday.salad.all()
-        friday = {}
-        friday["vegies"] = meal_plan.day_friday.vegies.all()
-        friday["starches"] = meal_plan.day_friday.starches.all()
-        friday["salad"] = meal_plan.day_friday.salad.all()
-        saturday = {}
-        saturday["vegies"] = meal_plan.day_saturday.vegies.all()
-        saturday["starches"] = meal_plan.day_saturday.starches.all()
-        saturday["salad"] = meal_plan.day_saturday.salad.all()
-        sunday = {}
-        sunday["vegies"] = meal_plan.day_sunday.vegies.all()
-        sunday["starches"] = meal_plan.day_sunday.starches.all()
-        sunday["salad"] = meal_plan.day_sunday.salad.all()
-        context["monday"] = monday
-        context["tuesday"] = tuesday
-        context["wednesday"] = wednesday
-        context["thursday"] = thursday
-        context["friday"] = friday
-        context["saturday"] = saturday
-        context["sunday"] = sunday
+
+        context["meal_plan"] = meal_plan
+        # Load meals as drop down
+        mains = Mains.objects.filter()
+        context["mains"] = mains
+
+        vegie = Vegetable.objects.filter()
+        context["vegetables"] = vegie
+
+        starch = Starch.objects.filter()
+        context["starch"] = starch
 
         return context
 

@@ -6,172 +6,104 @@
 
 {% block content %}
 <div class="container">
-
+  <form>
   <div class="row">
     <div class="col-sm-12">
 
       <h2>Plan: {{ object }}</h2>
     </div>
   </div>
+  {% csrf_token %} 
+  {{ form.non_field_errors }}
   
+  <input type="submit" class="form-control btn btn-primary" value="Save"> 
+  <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Monday</h5>
         <div class="card-body">
-          <h5 class="card-title">Monday</h5>
-          <p class="card-text">{{ object.day_monday.mains }}</p>
-          <p class="card-text">
-            {% for item in monday.vegies %}
-            {{ item }}
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in monday.starches %}
-            {{ item }}
-            {% endfor %}
-          <p class="card-text">
-            {% for item in monday.salad %}
-            {{ item }}
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_monday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_monday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_monday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_monday }}</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Tuesday</h5>
         <div class="card-body">
-          <h5 class="card-title">Tuesday</h5>
-          <p class="card-text">{{ object.day_tuesday.mains }}</p>
-          <p class="card-text">
-            {% for item in tuesday.vegies %}
-            {{ item }}
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in tuesday.starches %}
-            {{ item }}
-            {% endfor %}
-          <p class="card-text">
-            {% for item in tuesday.salad %}
-            {{ item }}
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_tuesday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_tuesday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_tuesday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_tuesday }}</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Wednesday</h5>
         <div class="card-body">
-          <h5 class="card-title">Wednesday</h5>
-          <p class="card-text">{{ object.day_wednesday.mains }}</p>
-          <p class="card-text">
-            {% for item in wednesday.vegies %}
-            {{ item }}
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in wednesday.starches %}
-            {{ item }}
-            {% endfor %}
-          <p class="card-text">
-            {% for item in wednesday.salad %}
-            {{ item }}
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_wednesday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_wednesday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_wednesday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_wednesday }}</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Thursday</h5>
         <div class="card-body">
-          <h5 class="card-title">Thursday</h5>
-          <p class="card-text">{{ object.day_thursday.mains }}</p>
-          <p class="card-text">
-            {% for item in thursday.vegies %}
-            {{ item }}
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in thursday.starches %}
-            {{ item }}
-            {% endfor %}
-          <p class="card-text">
-            {% for item in thursday.salad %}
-            {{ item }}
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_thursday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_thursday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_thursday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_thursday }}</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Friday</h5>
         <div class="card-body">
-          <h5 class="card-title">Friday</h5>
-          <p class="card-text">{{ object.day_friday.mains }}</p>
-          <p class="card-text">
-            {% for item in friday.vegies %}
-            {{ item }}
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in friday.starches %}
-            {{ item }}
-            {% endfor %}
-          <p class="card-text">
-            {% for item in friday.salad %}
-            {{ item }}
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_friday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_friday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_friday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_friday }}</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Saturday</h5>
         <div class="card-body">
-          <h5 class="card-title">Saturday</h5>
-          <p class="card-text">{{ object.day_saturday.mains }}</p>
-          <p class="card-text">
-            {% for item in saturday.vegies %}
-            {{ item }}
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in saturday.starches %}
-            {{ item }}
-            {% endfor %}
-          <p class="card-text">
-            {% for item in saturday.salad %}
-            {{ item }}
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_saturday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_saturday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_saturday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_saturday }}</p>
         </div>
       </div>
     </div>
     <div class="col">
       <div class="card">
+        <h5 class="card-header">Sunday</h5>
         <div class="card-body">
-          <h5 class="card-title">Sunday</h5>
-          <p class="card-text">{{ object.day_sunday.mains }}</p>
-          <p class="card-text">
-            {% for item in sunday.vegies %}
-            {{ item }} <a href="{{ item.pk }}">x</a>
-            {% endfor %}
-          </p>
-          <p class="card-text">
-            {% for item in sunday.starches %}
-            {{ item }} <a href="{{ item.pk }}">x</a>
-            {% endfor %}
-          <p class="card-text">
-            {% for item in sunday.salad %}
-            {{ item }} <a href="{{ item.pk }}">x</a>
-            {% endfor %}
-          </p>
+          <p class="card-text">Mains: {{ form.mains_sunday }}</p>
+          <p class="card-text"> Vegies: {{ form.veg_sunday }}</p>
+          <p class="card-text"> Starch: {{ form.starch_sunday }}</p>
+          <p class="card-text"> Salad: {{ form.salad_sunday }}</p>
         </div>
       </div>
     </div>
   </div>
 
 <!-- End Action buttons -->
-
+</form>
 </div>
+<style>
+  select {
+    width: 100%
+  }
+</style>
 {% endblock content %}
