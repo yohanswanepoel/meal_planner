@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
@@ -11,6 +11,7 @@ from django.views.generic import (
     DetailView,
     RedirectView,
     ListView,
+    View,
     FormView,
     UpdateView,
 )
@@ -19,7 +20,7 @@ from django.views.generic import (
 
 from planner.models import MealPlan, Meal, Vegetable, Mains, Starch
 from .utils import getWeeks
-from .forms import PlannerForm
+from .forms import DayForm
 
 
 def index(request):
@@ -48,14 +49,32 @@ class PlannerUpdateView(UpdateView):
     success = "#"
 
 
-class PlannerDetailView(FormMixin, DetailView):
+class PlannerDetailView(View):
     template_name = "planner/plan_detail.html"
     model = MealPlan
-    form_class = PlannerForm
+    form_class = DayForm
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        meal_plan = get_object_or_404(MealPlan, pk=self.kwargs["pk"])
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        print(form)
+        if form.is_valid():
+            # process form
+            print(form)
+            pass
+        return redirect(reverse("planner:plan_view", args=[8]))
+
+    def get(self, request, pk=None):
+        # Define Forms
+        monday_form = self.form_class()
+        tuesday_form = self.form_class()
+        wednesday_form = self.form_class()
+        thursday_form = self.form_class()
+        friday_form = self.form_class()
+        saturday_form = self.form_class()
+        sunday_form = self.form_class()
+        context = {}
+        meal_plan = get_object_or_404(MealPlan, pk=pk)
+        context = {}
         if meal_plan.day_monday is None:
             meal = Meal()
             meal.save()
@@ -97,7 +116,15 @@ class PlannerDetailView(FormMixin, DetailView):
         starch = Starch.objects.filter()
         context["starch"] = starch
 
-        return context
+        context["monday_form"] = monday_form
+        context["tuesday_form"] = tuesday_form
+        context["wednesday_form"] = wednesday_form
+        context["thursday_form"] = thursday_form
+        context["friday_form"] = friday_form
+        context["saturday_form"] = saturday_form
+        context["sunday_form"] = sunday_form
+
+        return render(request, self.template_name, context=context)
 
 
 planner_update_view = PlannerUpdateView.as_view()
